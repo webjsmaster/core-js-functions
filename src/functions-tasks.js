@@ -71,7 +71,7 @@ function getArgumentsCount(/* funcs */) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (x) {
+  return function fn(x) {
     return x ** exponent;
   };
 }
@@ -94,7 +94,7 @@ function getPolynom(...coefficients) {
     return null;
   }
 
-  return function (x) {
+  return function fn(x) {
     return coefficients.reduce((total, coefficient, index) => {
       return total + coefficient * x ** (coefficients.length - 1 - index);
     }, 0);
@@ -118,7 +118,7 @@ function getPolynom(...coefficients) {
 function memoize(func) {
   let cache;
 
-  return function () {
+  return function fn() {
     if (!cache) {
       cache = func();
     }
@@ -142,7 +142,7 @@ function memoize(func) {
  * retryer() => 2
  */
 function retry(func, attempts) {
-  return function () {
+  return function fn() {
     for (let i = 0; i < attempts; i += 1) {
       try {
         return func();
@@ -178,7 +178,7 @@ function retry(func, attempts) {
  *
  */
 function logger(func, logFunc) {
-  return function (...args) {
+  return function fn(...args) {
     const argStr = args.map((arg) => JSON.stringify(arg)).join(',');
     logFunc(`${func.name}(${argStr}) starts`);
     const result = func(...args);
