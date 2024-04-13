@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,10 +32,9 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  return func ? func.toString() : false;
 }
-
 /**
  * Returns the array where each element is the count of function arguments.
  *
@@ -50,8 +49,8 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  return funcs.map((func) => func.length);
 }
 
 /**
@@ -200,8 +199,10 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function fn1(...args2) {
+    return fn(...args1, ...args2);
+  };
 }
 
 /**
@@ -213,16 +214,18 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *
  * @example
  *   const getId4 = getIdGenerator(4);
- *   const getId10 = gerIdGenerator(10);
  *   getId4() => 4
- *   getId10() => 10
  *   getId4() => 5
  *   getId4() => 6
  *   getId4() => 7
- *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  const n = startFrom;
+  let count = -1;
+  return function fn() {
+    count += 1;
+    return n + count;
+  };
 }
 
 module.exports = {
